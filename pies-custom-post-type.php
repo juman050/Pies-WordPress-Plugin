@@ -2,8 +2,8 @@
 /**
  * Plugin Name: Pies Custom Post Type
  * Description: A custom post type plugin for managing pies.
- * Version: 1.2
- * Author: Your Name
+ * Version: 1.3
+ * Author: Juman
  */
 
 // Exit if accessed directly
@@ -217,7 +217,7 @@ class Pies_Custom_Post_Type {
             while ($query->have_posts()) {
                 $query->the_post();
                 $output .= '<div class="pie-item">';
-                $output .= '<h2>' . get_the_title() . '</h2>';
+                $output .= '<h2>' . get_the_title() . get_the_ID() .'</h2>';
                 $output .= '<p><strong>Description:</strong> ' . esc_html(get_post_meta(get_the_ID(), '_description', true)) . '</p>';
                 $output .= '<p><strong>Type:</strong> ' . esc_html(get_post_meta(get_the_ID(), '_pie_type', true)) . '</p>';
                 $output .= '<p><strong>Ingredients:</strong> ' . esc_html(get_post_meta(get_the_ID(), '_ingredients', true)) . '</p>';
@@ -226,7 +226,7 @@ class Pies_Custom_Post_Type {
             $output .= '</div>';
             
             // Pagination
-            $output .= '<div class="pagination">';
+            $output .= '<div class="pagination nav-links">';
             $output .= paginate_links(array(
                 'total' => $query->max_num_pages
             ));
@@ -234,6 +234,9 @@ class Pies_Custom_Post_Type {
         } else {
             $output = '<p>No pies found.</p>';
         }
+
+ 
+
         
         wp_reset_postdata();
         
